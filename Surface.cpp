@@ -19,7 +19,7 @@ bool LoadFromBuff(KeyValues *pThis, const char *pszFirst, const char *pszSecond,
 
 	if(dwAddress == NULL)
 	{
-		dwAddress = Base::Utils::PatternSearch(/*client.dll*/XorStr<0xA1,11,0x8F27B968>("\xC2\xCE\xCA\xC1\xCB\xD2\x89\xCC\xC5\xC6"+0x8F27B968).s,(PBYTE)"\x55\x8B\xEC\x83\xEC\x34\x53\x8B\x5D\x0C",/*xxxxxxxxxx*/XorStr<0x4A,11,0x4007B1F8>("\x32\x33\x34\x35\x36\x37\x28\x29\x2A\x2B"+0x4007B1F8).s,NULL,NULL);
+		dwAddress = Base::Utils::PatternSearch(/*client.dll*/XorStr<0xA1,11,0x8F27B968>("\xC2\xCE\xCA\xC1\xCB\xD2\x89\xCC\xC5\xC6"+0x8F27B968).s,(PBYTE)"\x55\x8B\xEC\x83\xEC\x38\x53\x8B\x5D\x0C",/*xxxxxxxxxx*/XorStr<0x4A,11,0x4007B1F8>("\x32\x33\x34\x35\x36\x37\x28\x29\x2A\x2B"+0x4007B1F8).s,NULL,NULL);
 #ifdef DEBUGMODE
 		char szLog[256];
 		sprintf(szLog,"LoadFromBuffer: 0x%x",dwAddress);
