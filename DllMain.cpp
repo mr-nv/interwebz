@@ -254,7 +254,34 @@ void InitDllThread(void* ptr)
 #ifdef DEBUGMODE
 		Base::Debug::LOG("hooked FrameStageNotify");
 #endif
+
+		g_pInputVMT.bInitialize( ( PDWORD* )g_Valve.pInput );
+		g_pInputVMT.dwHookMethod( ( DWORD )hkdGetUserCmd, 8 );
+
+#ifdef DEBUGMODE
+		Base::Debug::LOG( "hooked GetUserCmd..." );
+#endif
 		
+		g_pPredictionVMT.bInitialize( ( PDWORD* )g_Valve.pPred );
+		g_pPredictionVMT.dwHookMethod( ( DWORD )hkdRunCommand, 17 );
+
+#ifdef DEBUGMODE
+		sprintf( szDebugString, "runcommand: 0x%X", g_pPredictionVMT.dwGetMethodAddress( 17 ) );
+		Base::Debug::LOG( szDebugString );
+#endif
+
+		g_pPredictionVMT.dwHookMethod( ( DWORD )hkdFinishMove, 19 );
+
+#ifdef DEBUGMODE
+		Base::Debug::LOG( "hooked FinishMove" );
+#endif
+
+		g_pModelRenderVMT.bInitialize( ( PDWORD* )g_Valve.pModelRender );
+		g_pModelRenderVMT.dwHookMethod( ( DWORD )hkdDrawModelExecute, 19 );
+
+#ifdef DEBUGMODE
+		Base::Debug::LOG( "hooked DrawModelExecute" );
+#endif
 	}
 	/*
 

@@ -126,6 +126,8 @@ void MyMovePacket(int sequence_number, bool &SendPacket)
 	static int iChokedCommands;
 	int iMaxChokedCommands = 14;
 
+	RunCommand( pMe, pUserCmd, fCurTime );
+
 	//kolonote:
 	//this way we wont crash if we have no active weapon
 	if (pWeapon)
@@ -270,7 +272,7 @@ void MyMovePacket(int sequence_number, bool &SendPacket)
 
 			if (g_CVARS.CvarList[SMACBot] && (!(pUserCmd->buttons & IN_ATTACK))) // untested
 			{
-				pUserCmd->viewangles = Vector(0, 0, 0);
+				pUserCmd->viewangles.Init( );
 				g_Aimbot.FixMovement(pUserCmd, qOldAngle);
 			}
 
@@ -386,7 +388,7 @@ void StorePunchAngle(CBaseEntity* player)
 
 void __stdcall hkdRunCommand(CBaseEntity* pEntity, ValveSDK::CInput::CUserCmd* pUserCmd, void* moveHelper)
 {
-	static DWORD dwOriginRunCommand = g_pPredictionVMT.dwGetMethodAddress(17);
+	/*static DWORD dwOriginRunCommand = g_pPredictionVMT.dwGetMethodAddress(17);
 
 	__asm
 	{
@@ -394,7 +396,8 @@ void __stdcall hkdRunCommand(CBaseEntity* pEntity, ValveSDK::CInput::CUserCmd* p
 		PUSH pUserCmd;
 		PUSH pEntity;
 		CALL dwOriginRunCommand;
-	}
+	}*/
+	( ( ( void( __thiscall* )( void*, CBaseEntity*, ValveSDK::CInput::CUserCmd*, void* ) )g_pPredictionVMT.dwGetMethodAddress( 17 ) ) )( g_Valve.pPred, pEntity, pUserCmd, moveHelper );
 
 	g_Valve.pMoveHelper = (ValveSDK::ImoveHelper*)moveHelper;
 
@@ -672,15 +675,7 @@ ValveSDK::CInput::CUserCmd* __stdcall hkdGetUserCmd(int sequence_number)
 
 void __stdcall hkdFinishMove(CBaseEntity *player, ValveSDK::CInput::CUserCmd *ucmd, PVOID move)
 {
-	static DWORD dwOriginalAddress = g_pPredictionVMT.dwGetMethodAddress(19);
-
-	_asm
-	{
-		PUSH move
-		PUSH ucmd
-		PUSH player
-		CALL dwOriginalAddress
-	}
+	( ( ( void( __thiscall* )( void*, CBaseEntity*, ValveSDK::CInput::CUserCmd*, void* ) )g_pPredictionVMT.dwGetMethodAddress( 19 ) ) )( g_Valve.pPred, player, ucmd, move );
 
 	Vector vNewAbsVelocity = player->GetVelocity() + player->GetBaseVelocity();
 

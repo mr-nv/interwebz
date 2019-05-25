@@ -41,7 +41,7 @@ inline void VectorAdd(const Vector& a, const Vector& b, Vector& c)
 #define USERCMDOFFSET 0xC4
 #define VERIFIEDCMDOFFSET 0xC8
 #define MULTIPLAYER_BACKUP 90
-#define CURRENTCOMMANDOFFSET 0x100C
+#define CURRENTCOMMANDOFFSET 0x101C
 #define CURRENTPLAYERCOMMANDOFFSET 0x1640
 #define PREIDCTIONSEEDOFFSET 0x1A
 #define PREDICTIONPLAYEROFFSET 0x2D
@@ -50,7 +50,7 @@ inline void VectorAdd(const Vector& a, const Vector& b, Vector& c)
 #define GETSPREADOFFSET 0x5E0 // updated
 #define GETCONEOFFSET 0x5E4 // updated
 #define UPDATEACCURACYPENALTYOFFSET 0x5E8 // updated
-#define WEAPONIDOFFSET 0x5A0
+#define WEAPONIDOFFSET 0x5B4 // updated
 #define APPSYSTEMFACTORYOFFSET 0x2A
 #define CLIENTFACTORYOFFSET 0x67
 
