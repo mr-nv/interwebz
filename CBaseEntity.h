@@ -67,13 +67,13 @@ public:
 
 	void AddEFlags(DWORD dwFlags)
 	{
-		PINT piEFlags = (PINT)((DWORD)this + 0x170);
+		PINT piEFlags = (PINT)((DWORD)this + 0x174);
 		*piEFlags |= dwFlags;
 	}
 
 	PVOID GetCollisionProperty()
 	{
-		return (PVOID)((DWORD)this + 0x198);
+		return (PVOID)((DWORD)this + 0x19C);
 	}
 
 	bool IsDormant()
